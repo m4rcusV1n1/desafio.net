@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApiDesafioDotnet</name>
+    </assembly>
+    <members>
+        <member name="M:ApiDesafioDotnet.Controllers.AuthController.Authenticate(ApiDesafioDotnet.Data.DataContext,ApiDesafioDotnet.Models.User)">
+            <summary>
+            Primeiro passso para gerar o token passando o login e senha disponibilizado na documentação do Git obs: para acessar os metodos abaixo é necessário gerar o token.
+            </summary>
+            <param name="_db"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiDesafioDotnet.Controllers.HomeController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            database connection config
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:ApiDesafioDotnet.Controllers.HomeController.getAllItems(ApiDesafioDotnet.Data.DataContext)">
+            <summary>
+            Lista dos os itens exportado pelo txt
+            </summary>
+            <param name="_db"></param>
+            <param name="imports"></param>
+            <returns>Lista dos os itens exportado pelo txt</returns>
+        </member>
+        <member name="M:ApiDesafioDotnet.Controllers.HomeController.insertItems(ApiDesafioDotnet.Data.DataContext,System.Collections.Generic.List{ApiDesafioDotnet.Models.importFile})">
+            <summary>
+            Insere dados dos itens tratados no frontEnd
+            </summary>
+            <param name="_db"></param>
+            <param name="import"></param>
+            <returns>Insere dados dos itens tratados no frontEnd</returns>
+        </member>
+    </members>
+</doc>

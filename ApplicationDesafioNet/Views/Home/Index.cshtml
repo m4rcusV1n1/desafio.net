@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model System.Data.DataTable
+@using System.Data;
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba( 255, 255, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+    }
+
+    /* enquanto estiver carregando, o scroll da página estará desativado */
+    body.loading {
+        overflow: hidden;
+    }
+
+        /* a partir do momento em que o body estiver com a classe loading,  o modal aparecerá */
+        body.loading .modal {
+            display: block;
+        }
+</style>
+<div id="Sucesso"></div>
+<div class="modal"></div>
+<form asp-controller="Home" asp-action="Export">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8">
+                <input type="file" id="fileupload" name="files" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <input type="button" name="Upload" value="Upload" id="btnupload" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="row">
+            <div id="divPrint"></div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $body = $("body");
+
+    $(document).on({
+        ajaxStart: function () { $body.addClass("loading"); },
+        ajaxStop: function () { $body.removeClass("loading"); }
+    });
+    $(function () {
+        $('#btnupload').on('click', function () {
+            var filename = $('#fileupload').val();
+            if (filename.length == 0) {
+                alert("Por favor Selecione um arquivo para importar.");
+                return false;
+            }
+            var fdata = new FormData();
+            var fileUpload = $("#fileupload").get(0);
+            var files = fileUpload.files;
+            fdata.append(files[0].name, files[0]);
+            $body.addClass("loading");
+            $.ajax({
+                type: "POST",
+                url: "/Home/postApi",
+            
+                data: fdata,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $body.removeClass("loading");
+                    var RetJson = JSON.stringify(response.inseridos).replace('"', "");
+                    var RetJsonError = JSON.stringify(response.error).replace('"', "");
+                    console.log("response: " + RetJson)
+                    $('#Sucesso').html("<div class='alert alert-success' role='alert'>Arquivo importado com sucesso</div><button type='button' class='btn - close' data-bs-dismiss='alert' aria-label='Close'></button>")
+                    $('#divPrint').html("<p>Quantidade de Registro inseridos: " + RetJson.replace('"', "") + "</p> <br> <p>Quantidades de Registro com erro: " + RetJsonError.replace('"', "") +"</p>");
+                    
+                },
+                error: function (e) {
+                    $body.removeClass("loading");
+                    $('#Sucesso').html("<div class='alert alert-danger' role='alert'>Ocorreu um erro ao importar o arquivo</div><button type='button' class='btn - close' data-bs-dismiss='alert' aria-label='Close'></button>")
+                    $('#divPrint').html(e.responseText);
+                }
+            });
+        })
+        $('#btnExport').on('click', function () {
+            var filename = $('#fileupload').val();
+            if (filename.length == 0) {
+                alert("Por favor Selecione um arquivo para importar");
+                return false;
+            }
+        });
+    });
+</script>

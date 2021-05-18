@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "b5u+ZsfDoyweAFIfJ011TQDYxO808ksUDRkiD1gPfDu6A/Nkk3RtjjVkjBJgvWV1nPeAcsaKZ5BG8MUZM3bs4A==",
+  "success": true,
+  "projectFilePath": "D:\\Desafios\\desafio.net\\ApplicationDesafioNet\\ApplicationDesafioNet.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\marcu\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512"
+  ],
+  "logs": []
+}
